@@ -59,11 +59,12 @@ passport.deserializeUser(User.deserializeUser());
 
 
 app.use(passport.initialize());
-app.use(passport.session());
+app.use(passport.session()); //use after our own session config
 passport.use(new LocalStrategy(User.authenticate()));
 
 
 app.use((req, res, next) => { //save flash into locals, to pass it without calling it fully in our views/partials pages (flash.ejs)
+    res.locals.currentUser = req.user;
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     next();
