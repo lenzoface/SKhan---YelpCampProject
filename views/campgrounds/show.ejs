@@ -4,7 +4,9 @@
     <div class="row mb-5">
         <div class="col-6">
             <div class="card mb-3">
-                <img class="card-img-top" src="<%= campground.image %>" alt="Cannot load an image :(">
+                <% for (let img of campground.images) { %> 
+                <img class="card-img-top" src="<%= img.url %>" alt="Cannot load an image :(">
+                <% } %> 
                 <div class="card-body">
                     <h5 class="card-title">
                         <%= campground.title %>

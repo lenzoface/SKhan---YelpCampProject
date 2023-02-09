@@ -11,8 +11,9 @@ module.exports.renderNewForm = (req, res) => {
 }
 
 module.exports.createCampground = async (req, res, next) => {
-    // if(!req.body.campground) throw new ExpressError('Invalid Campground Data!', 400) // to not allow external requests with no data in new camp (via Postman etc.) 
+    // if(!req.body.campground) throw new ExpressError('Invalid Campground Data!', 400) // (OLD) to not allow external requests with no data in new camp (via Postman etc.)
     const campground = new Campground(req.body.campground);
+    campground.images = req.files.map(f => ({url: f.path, filename: f.filename})) // takes path and filename from files in req, puts into array
     campground.author = req.user._id;
     await campground.save();
     req.flash('success', 'Successfully made a new campground!')
