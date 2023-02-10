@@ -14,8 +14,12 @@
                     <input class="form-control" type="text" name="campground[location]" id="location" required>
                     <div class="valid-feedback">Looks good!</div>
                 </div>
-                <input type="file" name="image" id="image" multiple>
-                <!-- <div class="mb-3">
+                <!-- <input type="file" name="image" id="image" multiple> // UGLY AND OLD -->
+                <div class="mb-3">
+                    <label for="formFileMultiple" class="form-label">Image(s) upload:</label>
+                    <input class="form-control" name="image" type="file" id="formFileMultiple" multiple>
+                  </div>
+                <!-- <div class="mb-3"> // ELDEST VER
                     <label class="form-label" for="image">Image URL</label>
                     <input class="form-control" type="text" name="campground[image]" id="image" required>
                     <div class="valid-feedback">Looks good!</div>

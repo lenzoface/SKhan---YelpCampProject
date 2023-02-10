@@ -1,4 +1,9 @@
 const Campground = require('../models/campground');
+const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding')
+const mapBoxToken = process.env.MAPBOX_TOKEN;
+const geocoder = mbxGeocoding({accessToken: mapBoxToken});
+const {cloudinary} = require('../cloudinary')
+
 
 
 module.exports.index = async (req, res) => {
@@ -11,8 +16,13 @@ module.exports.renderNewForm = (req, res) => {
 }
 
 module.exports.createCampground = async (req, res, next) => {
+    const geoData = await geocoder.forwardGeocode({
+        query: req.body.campground.location,
+        limit: 1
+    }).send()
     // if(!req.body.campground) throw new ExpressError('Invalid Campground Data!', 400) // (OLD) to not allow external requests with no data in new camp (via Postman etc.)
     const campground = new Campground(req.body.campground);
+    campground.geometry = geoData.body.features[0].geometry;
     campground.images = req.files.map(f => ({url: f.path, filename: f.filename})) // takes path and filename from files in req, puts into array
     campground.author = req.user._id;
     await campground.save();
@@ -46,14 +56,30 @@ module.exports.renderEditForm = async (req, res) => {
 
 module.exports.updateCampground = async (req, res) => {
     const {id} = req.params;
+    console.log(req.body); 
     const campground = await Campground.findByIdAndUpdate(id, { ...req.body.campground });
+    const imgs = req.files.map(f => ({url: f.path, filename: f.filename}))
+    campground.images.push(...imgs);
+
+    if (req.body.deleteImages) { 
+        for (let filename of req.body.deleteImages) {
+            await cloudinary.uploader.destroy(filename); // deleting from cloudinary
+        }
+        // deleting images from mongo only:
+        await campground.updateOne({$pull: {images: {filename: {$in: req.body.deleteImages}}}})
+    }
+
+    await campground.save()
     req.flash('success', 'Successfully updated the campground!')
     res.redirect(`/campgrounds/${campground._id}`)
 }
 
 module.exports.deleteCampground = async (req, res) => {
-    const { id } = req.params;
-    await Campground.findByIdAndDelete(id);
+    const {id} = req.params
+    const campground = await Campground.findByIdAndDelete(id)
+    for (let image of campground.images) {
+        await cloudinary.uploader.destroy(image.filename);
+      } 
     req.flash('success', 'Successfully deleted the campground!')
     res.redirect('/campgrounds');
 }
