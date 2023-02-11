@@ -3,16 +3,20 @@ const Review = require('./review')
 const Schema = mongoose.Schema;
 // const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
+const ImageSchema = new Schema({
+    url: String,
+    filename: String
+});
 
-// https://res.cloudinary.com/demo/image/upload/w_500,h_300,c_fill/shoe.jpg
+ImageSchema.virtual('thumbnail').get(function () {
+    return this.url.replace('/upload/', '/upload/w_200/')
+});
 
+const opts = { toJSON: { virtuals: true } };
 
 const CampgroundSchema = new Schema({
     title: String,
-    images: [{
-        url: String,
-        filename: String
-    }],
+    images: [ImageSchema],
     geometry: {
         type: {
             type: String,
@@ -36,8 +40,21 @@ const CampgroundSchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: 'Review'
         }
-    ]
+    ],
+    // properties: {
+    //     popUpMarkup: ''
+    // }
+}, opts);
+
+
+CampgroundSchema.virtual('properties.popUpMarkup').get(function () {
+    return `<b><a href="/campgrounds/${this._id}">${this.title}</a></b>
+    <p>${this.description.substring(0,20)}...</p>`
 });
+
+// CampgroundSchema.path('images').schema.virtual('thumbnail').get(function () {
+//     return this.url.replace('/upload/', '/upload/w_200/')
+// });
 
 
 // reviews under camp will be deleted too, using this delete middleware
@@ -51,9 +68,6 @@ CampgroundSchema.post('findOneAndDelete', async function (doc) {
     }
 })
 
-CampgroundSchema.path('images').schema.virtual('thumbnail').get(function () {
-    return this.url.replace('/upload/', '/upload/w_200/')
-});
 
 // const storage = new CloudinaryStorage({
 //     cloudinary,
