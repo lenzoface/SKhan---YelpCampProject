@@ -37,6 +37,6 @@ module.exports.logout = (req, res, next) => {
     req.logout(function(err) {
       if (err) { return next(err); }
       req.flash('success', "Goodbye!");
-      res.redirect('/campgrounds');
+      res.redirect('/');
     });
   }

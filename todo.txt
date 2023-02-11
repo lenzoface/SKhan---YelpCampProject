@@ -1,0 +1,3 @@
+fix an issue with /*****/edit page
+
+fix issue with deletion of all images when deleting one camp(edit form)
