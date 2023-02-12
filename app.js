@@ -19,12 +19,15 @@ const User = require('./models/user')
 const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require("helmet");
 
+const MongoDBStore = require('connect-mongo')
 
 
 const userRoutes = require('./routes/users');
 const campgroundRoutes = require('./routes/campgrounds');
 const reviewRoutes = require('./routes/reviews');
-// const dbUrl = process.env.DB_URL
+
+// const dbUrl = process.env.DB_URL // Mongo Atlas DB
+const dbUrl = 'mongodb://127.0.0.1:27017/yelp-camp'
 // 'mongodb://127.0.0.1:27017/yelp-camp'
 
 mongoose.set('strictQuery', true);
@@ -32,7 +35,7 @@ main().catch(err => console.log(err));
 
 async function main() {
     try {
-        await mongoose.connect('mongodb://127.0.0.1:27017/yelp-camp');
+        await mongoose.connect(dbUrl);
         console.log('MONGO CONNECTION OPEN');
     } catch (err) {
         console.log('OH NO, MONGO ERORRRRR!');
@@ -53,17 +56,31 @@ app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(mongoSanitize())
 
+const store = MongoDBStore.create({
+    mongoUrl: dbUrl,
+    touchAfter: 24 * 60 * 60, // If don't wanna resave all the session on db every single time user refreshes the page, you can lazy update the session, by limiting a period of time. Here 24hrs in seconds 
+    crypto: {
+        secret: 'fakesecret'
+    },
+});
+
+store.on('error', function (e) {
+    console.log('SESSION STORE ERROR', e);
+})
+
 const sessionConfig = {
+    store, // store = store
     secret: 'fakesecret',
     resave: false,
     saveUninitialized: true,
     cookie: {
         httpOnly: true, // security from the third party, default is true by itself
         // secure: true, //httpS, but that isn't gonna work with localhost
-        expires: Date.now() + 1000 * 60 * 60 * 24 * 7, //exp date, default is none (a week here)
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7, //exp date, default is none (a week here, in miliseconds)
         maxAge: 1000 * 60 * 60 * 24 * 7
     }
 }
+
 app.use(session(sessionConfig)) //sends a cookie stated above
 app.use(flash());
 app.use(helmet()); 

@@ -9,12 +9,14 @@
             <div class="row"> 
                 <div class="col-md-4">
                     <% if(campground.images.length) { %>
-                    <img class="igm-fluid card-img-top" alt="Not loading :(" src="<%= campground.images[0].url %>">
+                    <img class="igm-fluid card-img-top" alt="Not loading :(" src="<%= campground.images[0].url %>" crossorigin="">
+
                     <!-- Default picture: -->
                     <% } else { %> 
-                        <img class="igm-fluid card-img-top" alt="Not loading :(" src="https://res.cloudinary.com/dgmgtwci0/image/upload/v1675951772/YelpCamp/hoi9tmorwvjecfkykatd.jpg">
+                        <img class="igm-fluid card-img-top" alt="Not loading :(" src="https://res.cloudinary.com/dgmgtwci0/image/upload/v1676032613/YelpCamp/lzqn1ct1mpid11b6qjw0.jpg" crossorigin="">
                     <% } %> 
                 </div>
+                
                 <div class="col-md-8">
                     <div class="card-body">
                         <h5 class="card-title"><%= campground.title %></h5>

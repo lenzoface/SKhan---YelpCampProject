@@ -31,16 +31,16 @@ const seedDB = async () => {
             title: `${sample(descriptors)} ${sample(places)}`,
             images: [
                 {
-                  url: 'https://res.cloudinary.com/dgmgtwci0/image/upload/v1675951772/YelpCamp/hoi9tmorwvjecfkykatd.jpg',
-                  filename: 'YelpCamp/hoi9tmorwvjecfkykatd'
+                  url: 'https://res.cloudinary.com/dgmgtwci0/image/upload/v1676116349/YelpCamp/k4gmsteqnls4vss496xo.jpg',
+                  filename: 'YelpCamp/k4gmsteqnls4vss496xo'
                 },
                 {
-                  url: 'https://res.cloudinary.com/dgmgtwci0/image/upload/v1675951772/YelpCamp/wbj7fp68tkh9jp8tvufm.jpg',
-                  filename: 'YelpCamp/wbj7fp68tkh9jp8tvufm'
+                  url: 'https://res.cloudinary.com/dgmgtwci0/image/upload/v1676032425/YelpCamp/ih2szxfbkx0ckyh28jmu.jpg',
+                  filename: 'YelpCamp/ih2szxfbkx0ckyh28jmu'
                 },
                 {
-                  url: 'https://res.cloudinary.com/dgmgtwci0/image/upload/v1675951773/YelpCamp/qvynbstlm6myqktf5bu6.jpg',
-                  filename: 'YelpCamp/qvynbstlm6myqktf5bu6'
+                  url: 'https://res.cloudinary.com/dgmgtwci0/image/upload/v1676139495/YelpCamp/w7gh0hws3ar335iv3yn5.jpg',
+                  filename: 'YelpCamp/w7gh0hws3ar335iv3yn5'
                 }
               ],
             description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ducimus culpa quisquam laboriosam sed sint atque, tenetur similique! Voluptas vero laudantium adipisci, praesentium iusto doloremque ipsa repudiandae voluptatem illum, nobis modi.',

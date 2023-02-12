@@ -1,3 +1,9 @@
 fix an issue with /*****/edit page
 
 fix issue with deletion of all images when deleting one camp(edit form)
+
+searchbar
+
+ability to look at one user's made campgrounds
+
+make unified image sizes and style (border, etc.)
