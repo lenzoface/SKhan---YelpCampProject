@@ -29,7 +29,7 @@ module.exports.validateCampground = (req, res, next) => {
 module.exports.isAuthor = async (req, res, next) => { //safe measures from requests through postman, etc.
     const { id } = req.params;
     const campground = await Campground.findById(id);
-    if (!req.user.id === '63ea244c31da5c71b6c34394' || !req.user.id === '63ea16006d523c60eb476e1e') {// local and atlas admin
+    if (!req.user.username === 'admin') {// local and atlas admin
         if (!campground.author.equals(req.user._id)) { //preventing unauthorized user to make changes
             req.flash('error', 'You do not have permission to do that!');
             return res.redirect(`/campgrounds/${id}`)
@@ -42,7 +42,7 @@ module.exports.isAuthor = async (req, res, next) => { //safe measures from reque
 module.exports.isReviewAuthor = async (req, res, next) => {
     const { id, reviewId } = req.params;
     const review = await Review.findById(reviewId);
-    if (!req.user.id === '63ea244c31da5c71b6c34394' || !req.user.id === '63ea16006d523c60eb476e1e') { // local and atlas admin
+    if (!req.user.username === 'admin') { // local and atlas admin
         if (!review.author.equals(req.user._id)) { //preventing unauthorized user to make changes
             req.flash('error', 'You do not have permission to do that!');
             return res.redirect(`/campgrounds/${id}`)
