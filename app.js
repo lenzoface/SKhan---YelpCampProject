@@ -26,9 +26,9 @@ const userRoutes = require('./routes/users');
 const campgroundRoutes = require('./routes/campgrounds');
 const reviewRoutes = require('./routes/reviews');
 
-// const dbUrl = process.env.DB_URL // Mongo Atlas DB
-const dbUrl = 'mongodb://127.0.0.1:27017/yelp-camp'
-// 'mongodb://127.0.0.1:27017/yelp-camp'
+const dbUrl = process.env.DB_URL || 'mongodb://127.0.0.1:27017/yelp-camp'; // Mongo Atlas DB
+// const dbUrl = 'mongodb://127.0.0.1:27017/yelp-camp' //Local DB 
+// 'mongodb://127.0.0.1:27017/yelp-camp' // local DB
 
 mongoose.set('strictQuery', true);
 main().catch(err => console.log(err));
@@ -55,6 +55,9 @@ app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(mongoSanitize())
+
+const secret = process.env.SECRET || 'fakesecret'
+//              secret  || dev backup
 
 const store = MongoDBStore.create({
     mongoUrl: dbUrl,
