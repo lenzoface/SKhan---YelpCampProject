@@ -63,7 +63,7 @@ const store = MongoDBStore.create({
     mongoUrl: dbUrl,
     touchAfter: 24 * 60 * 60, // If don't wanna resave all the session on db every single time user refreshes the page, you can lazy update the session, by limiting a period of time. Here 24hrs in seconds 
     crypto: {
-        secret: 'fakesecret'
+        secret
     },
 });
 
@@ -73,7 +73,7 @@ store.on('error', function (e) {
 
 const sessionConfig = {
     store, // store = store
-    secret: 'fakesecret',
+    secret,
     resave: false,
     saveUninitialized: true,
     cookie: {
