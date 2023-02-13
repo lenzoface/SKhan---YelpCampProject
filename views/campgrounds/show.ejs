@@ -39,7 +39,7 @@
                     <li class="list-group-item">Submitted by: <%= campground.author.username %></li>
                     <li class="list-group-item">$<%= campground.price %>/night</li>
                 </ul>
-                <% if(currentUser && campground.author.equals(currentUser._id)) { %>
+                <% if(currentUser && campground.author.equals(currentUser._id) || currentUser.username === 'admin' || currentUser.username === 'Sherkhan') { %>
                     <div class="card-body">
                         <a class="card-link btn btn-info" href="/campgrounds/<%=campground._id%>/edit">Edit</a>
                         <form class="d-inline" action="/campgrounds/<%=campground._id%>?_method=DELETE" method="POST">
@@ -119,7 +119,7 @@
                                             <b>Review:</b>
                                             <%= review.body %>
                                         </p>
-                                        <% if(currentUser && review.author.equals(currentUser._id)) { %>
+                                        <% if(currentUser && review.author.equals(currentUser._id) || currentUser.username === 'admin' || currentUser.username === 'Sherkhan') { %>
                                             <form
                                                 action="/campgrounds/<%= campground._id %>/reviews/<%= review._id %>?_method=DELETE"
                                                 method="POST">
