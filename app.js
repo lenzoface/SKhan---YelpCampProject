@@ -83,8 +83,8 @@ const sessionConfig = {
 
 app.use(session(sessionConfig)) //sends a cookie stated above
 app.use(flash());
-app.use(helmet()); 
-// { contentSecurityPolicy: flase } - disables the `contentSecurityPolicy` middleware but keeps the rest.
+// app.use(helmet()); 
+// .crossOriginEmbedderPolicy({ policy: "credentialless" } - disables the `crossOriginEmbedderPolicy` middleware but keeps the rest.
 
 const scriptSrcUrls = [
     "https://stackpath.bootstrapcdn.com/",
@@ -93,6 +93,7 @@ const scriptSrcUrls = [
     "https://kit.fontawesome.com/",
     "https://cdnjs.cloudflare.com/",
     "https://cdn.jsdelivr.net",
+    "https://res.cloudinary.com/dgmgtwci0/",
 ];
 const styleSrcUrls = [
     "https://kit-free.fontawesome.com/",
@@ -101,15 +102,18 @@ const styleSrcUrls = [
     "https://api.tiles.mapbox.com/",
     "https://fonts.googleapis.com/",
     "https://use.fontawesome.com/",
-    "https://cdn.jsdelivr.net"
+    "https://cdn.jsdelivr.net",
+    "https://res.cloudinary.com/dgmgtwci0/",
 ];
 const connectSrcUrls = [
     "https://api.mapbox.com/",
     "https://a.tiles.mapbox.com/",
     "https://b.tiles.mapbox.com/",
     "https://events.mapbox.com/",
+    "https://cdn.jsdelivr.net",
+    "https://res.cloudinary.com/dgmgtwci0/",
 ];
-const fontSrcUrls = [];
+const fontSrcUrls = ["https://cdn.jsdelivr.net",];
 app.use(
     helmet.contentSecurityPolicy({
         directives: {
@@ -127,6 +131,8 @@ app.use(
                 "https://images.unsplash.com/",
             ],
             fontSrc: ["'self'", ...fontSrcUrls],
+            mediaSrc   : [ "https://res.cloudinary.com/dgmgtwci0/" ],
+            childSrc   : [ "blob:" ]
         },
     })
 );

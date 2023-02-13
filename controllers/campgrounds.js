@@ -7,7 +7,7 @@ const {cloudinary} = require('../cloudinary')
 
 
 module.exports.index = async (req, res) => {
-    const campgrounds = await Campground.find({})
+    const campgrounds = await Campground.find({}).sort({_id: -1}) // sort(-1) is used to render them in reverse, comes from mongoose 
     res.render('campgrounds/index', { campgrounds })
 }
 
