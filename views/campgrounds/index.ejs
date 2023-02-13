@@ -1,5 +1,9 @@
 <% layout('layouts/boilerplate') %>
 
+<% if(currentUser && currentUser.username === 'admin' || currentUser && currentUser.username === 'Sherkhan') { %>
+    <h2>You are an admin my boah! Username: <%= currentUser.username %></h2>
+    <% } %>
+
 <div id="cluster-map" class="mb-3"></div>
 
     <h1 class="mb-5">All Campgrounds</h1>

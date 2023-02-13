@@ -46,7 +46,7 @@ module.exports.showCampground = async (req, res) => {
 
 module.exports.renderEditForm = async (req, res) => {
     const {id} = req.params;
-    const campground = await Campground.findById(id);
+    const campground = await Campground.findById(id).sort({_id: -1}); // sort(-1) is used to render them in reverse, comes from mongoose
     if (!campground) { //flash instead of error page for user
         req.flash('error', 'Cannot find such campground :(');
         return res.redirect('/campgrounds');
