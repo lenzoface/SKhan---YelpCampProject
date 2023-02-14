@@ -7,7 +7,9 @@
             <hr>
             <% if (process.env.NODE_ENV !== 'production') { %>
             <p class="mb-0"><%= err.stack %></p>
-            <% } %>
+            <% } else { %>
+                <p>Sorry for that :(</p>
+                <% } %>
           </div>
     </div>  
 </div>

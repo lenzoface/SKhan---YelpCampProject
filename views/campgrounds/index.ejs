@@ -1,6 +1,6 @@
 <% layout('layouts/boilerplate') %>
 
-<% if(currentUser && currentUser.username === 'admin' || currentUser && currentUser.username === 'Sherkhan') { %>
+<% if(currentUser && currentUser.username === 'admin') { %>
     <h2>You are an admin my boah! Username: <%= currentUser.username %></h2>
     <% } %>
 
