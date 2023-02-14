@@ -6,7 +6,7 @@ ability to look at one user's made campgrounds
 
 make unified image sizes and style (border, width, height etc.)
 
-make possible to change location of mapbox on edit form
+make possible to change location of mapbox on edit form - done
 
 
 Services used:

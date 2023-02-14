@@ -4,29 +4,28 @@
     <div class="row mb-5">
         <div class="col-6">
 
-            <div id="campgroundCarousel" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner">
-                    <% campground.images.forEach((img, i) => { %>
-                        <div class="carousel-item <%= i === 0 ? 'active' : ''%>">
-                            <img class="d-block w-100" src="<%= img.url %>" alt="Images' slides" crossorigin="">
-                          </div>
-                    <% }) %> 
-                  
-                </div>
-                <% if(campground.images.length > 1) {%> 
-                    <button class="carousel-control-prev" type="button" data-bs-target="#campgroundCarousel" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                      </button>
-                      <button class="carousel-control-next" type="button" data-bs-target="#campgroundCarousel" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                      </button>
-                <% } %> 
-              </div>
-
             <div class="card mb-3">
                 <div class="card-body">
+                    <div id="campgroundCarousel" class="carousel slide mb-3" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <% campground.images.forEach((img, i) => { %>
+                                <div class="carousel-item <%= i === 0 ? 'active' : ''%>">
+                                    <img class="d-block w-100 rounded" src="<%= img.url %>" alt="Images' slides" crossorigin="">
+                                  </div>
+                            <% }) %> 
+                          
+                        </div>
+                        <% if(campground.images.length > 1) {%> 
+                            <button class="carousel-control-prev" type="button" data-bs-target="#campgroundCarousel" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                              </button>
+                              <button class="carousel-control-next" type="button" data-bs-target="#campgroundCarousel" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                              </button>
+                        <% } %> 
+                      </div>
                     <h5 class="card-title">
                         <%= campground.title %>
                     </h5>
